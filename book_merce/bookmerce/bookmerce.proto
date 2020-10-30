@@ -1,0 +1,21 @@
+syntax = 'proto3';
+
+option go_package = 'github.com/Oloruntobi1/bookinfo/book_merce/bookmerce';
+
+package bookmerce;
+
+message Book {
+    string id = 1;
+    string name = 2;
+    string author = 3;
+    string language = 4;
+}
+
+message BookID {
+    string value = 1;
+}
+
+service BookMerce {
+    rpc AddBook(Book) returns (BookID);
+    rpc GetBook(BookID) returns (Book);
+}
