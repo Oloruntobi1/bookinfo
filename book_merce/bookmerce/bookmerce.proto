@@ -11,11 +11,12 @@ message Book {
     string language = 4;
 }
 
+
 message BookID {
     string value = 1;
 }
 
 service BookMerce {
-    rpc AddBook(Book) returns (BookID);
+    rpc CreateBook(Book) returns (BookID);
     rpc GetBook(BookID) returns (Book);
 }

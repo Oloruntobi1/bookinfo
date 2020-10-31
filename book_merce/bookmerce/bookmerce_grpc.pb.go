@@ -75,6 +75,7 @@ type UnsafeBookMerceServer interface {
 	mustEmbedUnimplementedBookMerceServer()
 }
 
+
 func RegisterBookMerceServer(s grpc.ServiceRegistrar, srv BookMerceServer) {
 	s.RegisterService(&_BookMerce_serviceDesc, srv)
 }

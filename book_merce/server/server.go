@@ -19,7 +19,7 @@ type server struct {
 	bookMap map[string]*pb.Book
 }
 
-func (s server) AddBook(ctx context.Context, in *pb.Book) (*pb.BookID, error) {
+func (s *server) AddBook(ctx context.Context, in *pb.Book) (*pb.BookID, error) {
 
 	out, err := uuid.NewV4()
 	if err != nil {
@@ -27,16 +27,19 @@ func (s server) AddBook(ctx context.Context, in *pb.Book) (*pb.BookID, error) {
 			"Error while generating Book ID", err)
 	}
 	in.Id = out.String()
+	
 	if s.bookMap == nil {
 		s.bookMap = make(map[string]*pb.Book)
 	}
 	s.bookMap[in.Id] = in
+	
 	return &pb.BookID{Value: in.Id}, status.New(codes.OK, "").Err()
 
 }
 
 // GetBook implements bookmerce.GetBook
 func (s *server) GetBook(ctx context.Context, in *pb.BookID) (*pb.Book, error) {
+
 	value, exists := s.bookMap[in.Value]
 		if exists {
 			return value, status.New(codes.OK, "").Err()
